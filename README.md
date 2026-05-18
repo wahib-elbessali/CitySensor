@@ -74,7 +74,7 @@ flowchart TB
     PubSub_Alerts -.->|Async Listen| Relay
     
     %% Client SSE Connection
-    Relay ====>|Server-Sent Events (SSE)| SSE
+    Relay ==>|Server-Sent Events (SSE)| SSE
     
     %% Worker to UI communication
     SSE -->|Parse & Map JSON| GeoJSON
