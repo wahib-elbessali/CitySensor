@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+.tox/
+.coverage
+.cache
+.pytest_cache/
+
+# Node/Vite (city-dashboard)
+city-dashboard/node_modules/
+city-dashboard/dist/
+city-dashboard/dist-ssr/
+city-dashboard/*.local
+
+# Large / Generated simulation data
+city_data/
+
+# IDEs/Editors
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.DS_Store
