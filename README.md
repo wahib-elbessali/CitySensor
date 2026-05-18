@@ -22,35 +22,35 @@ The system splits environmental data generation, distributed ingestion, stream a
 
 ```mermaid
 flowchart TB
-    subgraph Simulation & Ingestion Layer [Simulation & Ingestion Layer (Python)]
-        subgraph Server_B [Server B (Port 8002)]
-            SimB[Simulation Daemon Thread<br>Zones 151-300]
+    subgraph SimulationIngestionLayer ["Simulation & Ingestion Layer (Python)"]
+        subgraph Server_B ["Server B (Port 8002)"]
+            SimB["Simulation Daemon Thread<br>Zones 151-300"]
         end
-        subgraph Server_A [Server A (Port 8001)]
-            SimA[Simulation Daemon Thread<br>Zones 1-150]
-            Relay[FastAPI Async SSE Relay]
+        subgraph Server_A ["Server A (Port 8001)"]
+            SimA["Simulation Daemon Thread<br>Zones 1-150"]
+            Relay["FastAPI Async SSE Relay"]
         end
     end
 
-    subgraph Database Layer [Storage & Messaging Layer (Redis)]
-        PubSub_Stream((Pub/Sub: city:stream))
-        PubSub_Alerts((Pub/Sub: city:alerts))
-        Strings[Strings: sensor:id:latest<br>TTL = 300s]
-        Hashes[Hashes: zone:id:state:timestamp<br>TTL = 24h]
-        ActiveAlerts[Sorted Set: alerts:active<br>Scored by Value]
-        HotCache[Sorted Set: cache:hot_zones<br>LRU Eviction Index]
-        HotPayloads[Strings: cache:zone:id:hot<br>TTL = 300s]
+    subgraph DatabaseLayer ["Storage & Messaging Layer (Redis)"]
+        PubSub_Stream(("Pub/Sub: city:stream"))
+        PubSub_Alerts(("Pub/Sub: city:alerts"))
+        Strings["Strings: sensor:id:latest<br>TTL = 300s"]
+        Hashes["Hashes: zone:id:state:timestamp<br>TTL = 24h"]
+        ActiveAlerts["Sorted Set: alerts:active<br>Scored by Value"]
+        HotCache["Sorted Set: cache:hot_zones<br>LRU Eviction Index"]
+        HotPayloads["Strings: cache:zone:id:hot<br>TTL = 300s"]
     end
 
-    subgraph Client Layer [Visualization Layer (React + WebGL)]
-        subgraph Worker [Web Worker (worker.js)]
-            SSE[EventSource Stream Handler]
-            GeoJSON[GeoJSON Builder & Filter]
+    subgraph ClientLayer ["Visualization Layer (React + WebGL)"]
+        subgraph Worker ["Web Worker (worker.js)"]
+            SSE["EventSource Stream Handler"]
+            GeoJSON["GeoJSON Builder & Filter"]
         end
-        subgraph MainUI [UI Thread (App.jsx)]
-            Zustand[Zustand State Store]
-            DeckGL[Deck.gl GPU Map Canvas]
-            AlertLogs[Real-Time Alert Feed]
+        subgraph MainUI ["UI Thread (App.jsx)"]
+            Zustand["Zustand State Store"]
+            DeckGL["Deck.gl GPU Map Canvas"]
+            AlertLogs["Real-Time Alert Feed"]
         end
     end
 
